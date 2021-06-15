@@ -1,9 +1,11 @@
 import React from 'react'
+import { GalleryProvider } from './context'
+import Form from './components/Form'
 
 export const App = () => {
   return (
-    <div>
-      <h1>App.js</h1>
-    </div>
+    <GalleryProvider>
+      <Form />
+    </GalleryProvider>
   )
 }
