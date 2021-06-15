@@ -18,13 +18,13 @@ const Form = () => {
 
   return (
     <>
-      <h3>Form</h3>
       <p>{error && error}</p>
-      <form>
+      <form className='mb-5'>
         <label htmlFor='image'>Image</label>
         <input
-          id='image'
+          className='form-control'
           multiple={false}
+          id='image'
           type='file'
           onChange={changeHandle}
         />
@@ -40,10 +40,26 @@ const Form = () => {
         ></div>
       </div>
 
-      {data &&
-        data.map(({ docId, url }) => {
-          return <img width='100' key={docId} src={url} alt='test' />
-        })}
+      <div className='album py-5 '>
+        <div className='container'>
+          <div className='row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3'>
+            {data &&
+              data.map(({ docId, url }) => {
+                return (
+                  <div key={docId} className='col shadow-sm'>
+                    <img
+                      height='100%'
+                      width='100%'
+                      className='bd-placeholder-img card-img-top'
+                      src={url}
+                      alt='test'
+                    />
+                  </div>
+                )
+              })}
+          </div>
+        </div>
+      </div>
     </>
   )
 }
