@@ -15,12 +15,14 @@ const GalleryProvider = ({ children }) => {
   }
 
   const getGallery = () => {
-    db.collection('gallery').onSnapshot((snapshot) => {
-      const _data = snapshot.docs.map((doc) => {
-        return { docId: doc.id, ...doc.data() }
+    db.collection('gallery')
+      .orderBy('createdAt', 'desc')
+      .onSnapshot((snapshot) => {
+        const _data = snapshot.docs.map((doc) => {
+          return { docId: doc.id, ...doc.data() }
+        })
+        setData(_data)
       })
-      setData(_data)
-    })
   }
 
   useEffect(() => {
@@ -49,6 +51,7 @@ const GalleryProvider = ({ children }) => {
           stgRef.getDownloadURL().then((url) => {
             setUrl(url)
             collectionRef.add({
+              createdAt: timestamp(),
               url,
             })
             setProgress(0)

@@ -1,6 +1,6 @@
-/* body {
-  background: url('./bg-galaxy.jpg');
+body {
   background-size: cover;
   background-position: center center;
-  background-repeat: no-repeat;
-} */
+  background-repeat: no-repeat !important;
+  height: 100vh !important;
+}
