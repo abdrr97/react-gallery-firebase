@@ -2,7 +2,7 @@ import React, { useContext, useState } from 'react'
 import { GalleryContext } from '../context'
 
 const Form = () => {
-  const { uploadFile, error } = useContext(GalleryContext)
+  const { uploadFile, error, data, progress } = useContext(GalleryContext)
   const [file, setFile] = useState(null)
 
   const changeHandle = (e) => {
@@ -29,6 +29,21 @@ const Form = () => {
           onChange={changeHandle}
         />
       </form>
+
+      <div className='progress'>
+        <div
+          className='progress-bar'
+          role='progressbar'
+          style={{ width: progress + '%' }}
+          aria-valuemin='0'
+          aria-valuemax='100'
+        ></div>
+      </div>
+
+      {data &&
+        data.map(({ docId, url }) => {
+          return <img width='100' key={docId} src={url} alt='test' />
+        })}
     </>
   )
 }

@@ -8,14 +8,29 @@ const GalleryProvider = ({ children }) => {
   const [error, setError] = useState('')
   const [url, setUrl] = useState('')
   const [file, setFile] = useState(null)
+  const [data, setData] = useState([])
 
   const uploadFile = (_file) => {
     setFile(_file)
   }
 
+  const getGallery = () => {
+    db.collection('gallery').onSnapshot((snapshot) => {
+      const _data = snapshot.docs.map((doc) => {
+        return { docId: doc.id, ...doc.data() }
+      })
+      setData(_data)
+    })
+  }
+
+  useEffect(() => {
+    getGallery()
+  }, [])
+
   useEffect(() => {
     if (file) {
       const stgRef = storage.ref(file.name)
+      const collectionRef = db.collection('gallery')
 
       stgRef.put(file).on(
         'state_changed',
@@ -33,6 +48,10 @@ const GalleryProvider = ({ children }) => {
           // on finish upload
           stgRef.getDownloadURL().then((url) => {
             setUrl(url)
+            collectionRef.add({
+              url,
+            })
+            setProgress(0)
             setFile(null)
           })
         }
@@ -45,6 +64,7 @@ const GalleryProvider = ({ children }) => {
     url,
     error,
     uploadFile,
+    data,
   }
   return <GalleryContext.Provider value={values} children={children} />
 }
