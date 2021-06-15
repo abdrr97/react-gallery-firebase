@@ -2,7 +2,7 @@ import React, { useContext, useState } from 'react'
 import { GalleryContext } from '../context'
 
 const Form = () => {
-  const { uploadFile } = useContext(GalleryContext)
+  const { uploadFile, error } = useContext(GalleryContext)
   const [file, setFile] = useState(null)
 
   const changeHandle = (e) => {
@@ -19,6 +19,7 @@ const Form = () => {
   return (
     <>
       <h3>Form</h3>
+      <p>{error && error}</p>
       <form>
         <label htmlFor='image'>Image</label>
         <input
