@@ -63,6 +63,7 @@ const Form = () => {
                     transition={{ delay: 1.2 }}
                     layout
                     key={docId}
+                    width='100'
                     className='col shadow-sm'
                   >
                     <img
