@@ -1,20 +1,22 @@
-import React, { useState } from 'react'
+import React, { useContext } from 'react'
 import { motion } from 'framer-motion'
+import { BsFillTrashFill } from 'react-icons/bs'
+import { GalleryContext } from '../context'
 
-const Card = ({ setSelectedImage, url }) => {
-  // document.body.style.background = `url('${selectedImage}')`
-  // document.body.style.backgroundSize = 'cover'
-  // document.body.style.backgroundPosition = 'center'
-  // document.body.style.backgroundRepeat = 'no-repeat'
-
+const Card = ({ docId, setSelectedImage, url }) => {
+  const { removeImageFromGallery } = useContext(GalleryContext)
   return (
     <>
       <motion.article layout whileHover={{ opacity: 1 }} className='img-wrap'>
+        <motion.button
+          layout
+          className='remove-image'
+          onClick={() => removeImageFromGallery(docId)}
+        >
+          <BsFillTrashFill />
+        </motion.button>
         <motion.img
           onClick={() => setSelectedImage(url)}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 1.2 }}
           layout
           className='image'
           src={url}

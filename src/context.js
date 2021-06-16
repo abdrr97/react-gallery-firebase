@@ -14,6 +14,10 @@ const GalleryProvider = ({ children }) => {
     setFile(_file)
   }
 
+  const removeImageFromGallery = (docId) => {
+    db.collection('gallery').doc(docId).delete()
+  }
+
   const getGallery = () => {
     db.collection('gallery')
       .orderBy('createdAt', 'desc')
@@ -68,6 +72,7 @@ const GalleryProvider = ({ children }) => {
     error,
     uploadFile,
     data,
+    removeImageFromGallery,
   }
   return <GalleryContext.Provider value={values} children={children} />
 }

@@ -10,7 +10,12 @@ const ImageGrid = ({ setSelectedImage }) => {
       <div className='img-grid'>
         {data.map(({ docId, url }) => {
           return (
-            <Card key={docId} setSelectedImage={setSelectedImage} url={url} />
+            <Card
+              key={docId}
+              docId={docId}
+              setSelectedImage={setSelectedImage}
+              url={url}
+            />
           )
         })}
       </div>

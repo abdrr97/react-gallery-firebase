@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react'
 import { GalleryContext } from '../context'
-import ImageGrid from './ImageGrid'
+import { motion } from 'framer-motion'
 
 const Form = () => {
   const { uploadFile, error, progress } = useContext(GalleryContext)
@@ -29,10 +29,14 @@ const Form = () => {
         <p>{error && <div className='error'>{error}</div>}</p>
         <p>{file && <div>{file.name}</div>}</p>
         <p>
-          {file && (
-            <div className='progress-bar' style={{ width: progress + '%' }}>
+          {progress !== 0 && (
+            <motion.div
+              initial={{ width: 0 }}
+              animate={{ width: progress + '%' }}
+              className='progress-bar'
+            >
               {progress.toFixed(1) + '%'}
-            </div>
+            </motion.div>
           )}
         </p>
       </div>
